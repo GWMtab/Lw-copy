@@ -22,15 +22,25 @@ export function PixiBattlefield({ squadHp, enemyHp, isBattleActive }: PixiBattle
     }
 
     const app = new Application();
+    let isDestroyed = false;
+
+    const onResize = () => {
+      const width = Math.min(container.clientWidth || 640, 640);
+      app.renderer.resize(width, 360);
+    };
 
     void app
       .init({
-        width: 640,
+        width: Math.min(container.clientWidth || 640, 640),
         height: 360,
         background: new Color('#111827'),
         antialias: true
       })
       .then(() => {
+        if (isDestroyed) {
+          return;
+        }
+
         container.appendChild(app.canvas);
 
         const lane = new Graphics();
@@ -56,6 +66,8 @@ export function PixiBattlefield({ squadHp, enemyHp, isBattleActive }: PixiBattle
         label.position.set(210, 40);
         app.stage.addChild(label);
 
+        window.addEventListener('resize', onResize);
+
         let direction = 1;
         app.ticker.add((delta) => {
           if (!battleActiveRef.current) {
@@ -70,9 +82,13 @@ export function PixiBattlefield({ squadHp, enemyHp, isBattleActive }: PixiBattle
             direction *= -1;
           }
         });
+
+        onResize();
       });
 
     return () => {
+      isDestroyed = true;
+      window.removeEventListener('resize', onResize);
       app.destroy(true, { children: true });
     };
   }, []);
@@ -89,5 +105,5 @@ export function PixiBattlefield({ squadHp, enemyHp, isBattleActive }: PixiBattle
     }
   }, [enemyHp, squadHp]);
 
-  return <div ref={containerRef} />;
+  return <div ref={containerRef} className="pixiCanvas" />;
 }

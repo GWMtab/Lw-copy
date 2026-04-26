@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
+import { shallow } from 'zustand/shallow';
+import { BUILDINGS } from './gameLogic';
 import { PixiBattlefield } from './PixiBattlefield';
-import { BUILDINGS, useGameStore } from './gameStore';
+import { useGameStore } from './gameStore';
 import './styles.css';
 
 export default function App() {
@@ -17,7 +19,23 @@ export default function App() {
     canStartBuildingUpgrade,
     tick,
     canRecruit
-  } = useGameStore();
+  } = useGameStore(
+    (state) => ({
+      resources: state.resources,
+      tickCount: state.tickCount,
+      battle: state.battle,
+      telemetry: state.telemetry,
+      buildings: state.buildings,
+      collect: state.collect,
+      recruitTroop: state.recruitTroop,
+      startBattle: state.startBattle,
+      startBuildingUpgrade: state.startBuildingUpgrade,
+      canStartBuildingUpgrade: state.canStartBuildingUpgrade,
+      tick: state.tick,
+      canRecruit: state.canRecruit
+    }),
+    shallow
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
