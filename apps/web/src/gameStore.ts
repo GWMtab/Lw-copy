@@ -39,7 +39,7 @@ type TelemetryEvent = {
   payload: Record<string, number | string>;
 };
 
-type GameState = {
+export type GameState = {
   resources: Record<ResourceKey, number>;
   tickCount: number;
   battle: BattleState;
@@ -108,6 +108,21 @@ const canUpgrade = (
   const cost = upgradeCostForLevel(def.baseCost, nextLevel);
   return canAfford(state.resources, cost);
 };
+
+export const gameHudSelector = (state: GameState) => ({
+  resources: state.resources,
+  tickCount: state.tickCount,
+  battle: state.battle,
+  telemetry: state.telemetry,
+  buildings: state.buildings,
+  collect: state.collect,
+  recruitTroop: state.recruitTroop,
+  startBattle: state.startBattle,
+  startBuildingUpgrade: state.startBuildingUpgrade,
+  canStartBuildingUpgrade: state.canStartBuildingUpgrade,
+  tick: state.tick,
+  canRecruit: state.canRecruit
+});
 
 export const useGameStore = create<GameState>((set, get) => ({
   resources: {
