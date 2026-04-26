@@ -15,7 +15,7 @@ body {
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(320px, 420px) 1fr;
+  grid-template-columns: minmax(320px, 440px) 1fr;
   gap: 24px;
   padding: 24px;
 }
@@ -34,6 +34,29 @@ body {
   margin: 16px 0;
 }
 
+.battleStats {
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 16px;
+  background: #0b1220;
+}
+
+.battleStats h2 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.battleStats p {
+  margin: 4px 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 button {
   background: #2563eb;
   color: white;
@@ -41,6 +64,65 @@ button {
   border-radius: 8px;
   padding: 10px 14px;
   cursor: pointer;
+  font-weight: 600;
+}
+
+button:disabled {
+  background: #475569;
+  cursor: not-allowed;
+}
+
+.buildingPanel {
+  margin-top: 16px;
+  border-top: 1px solid #334155;
+  padding-top: 12px;
+}
+
+.buildingPanel h3 {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+}
+
+.buildingPanel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.buildingPanel li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  background: #0b1220;
+}
+
+.telemetryPanel {
+  margin-top: 16px;
+  border-top: 1px solid #334155;
+  padding-top: 12px;
+}
+
+.telemetryPanel h3 {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+}
+
+.telemetryPanel ul {
+  margin: 0;
+  padding-left: 18px;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.telemetryPanel li {
+  margin: 6px 0;
+  color: #cbd5e1;
 }
 
 .battlefield {
